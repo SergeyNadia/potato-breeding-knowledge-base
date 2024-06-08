@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather Report</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Generate Weather Report</h1>
+    <form method="post" action="{% url 'report' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Generate Report</button>
+    </form>
+
+    {% if reports %}
+    <h2>Report Results</h2>
+    <div>
+        <h3>Temperature Variation</h3>
+        {{ temp_div|safe }}
+    </div>
+    <div>
+        <h3>Wet and Dry Days</h3>
+        {{ wet_dry_div|safe }}
+    </div>
+    <div>
+        <p>Max Temperature: {{ max_temp }}</p>
+        <p>Min Temperature: {{ min_temp }}</p>
+        <p>Wet Days: {{ wet_days }}</p>
+        <p>Dry Days: {{ dry_days }}</p>
+    </div>
+    <a href="{% url 'download_csv' %}?start_date={{ form.start_date.value }}&end_date={{ form.end_date.value }}&location={{ form.location.value }}">Download CSV</a>
+    {% endif %}
+</body>
+</html>

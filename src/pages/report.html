@@ -1,0 +1,20 @@
+<!-- report.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Report</title>
+    <script src="{% static 'js/report.js' %}" defer></script>
+</head>
+<body>
+    <h1>Generate Report</h1>
+    <form id="report-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Generate</button>
+    </form>
+
+    <div id="report-results">
+        <!-- Результаты будут загружаться сюда через JavaScript -->
+    </div>
+</body>
+</html>
